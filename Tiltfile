@@ -22,7 +22,7 @@ local_resource(
 
 
 docker_build_with_restart(
-  'tilt-dev/ride-sharing/api-gateway',
+  'ride-sharing/api-gateway',
   '.',
   entrypoint=['/app/build/api-gateway'],
   dockerfile='./infra/development/docker/api-gateway.Dockerfile',
@@ -52,7 +52,7 @@ local_resource(
   deps=['./services/trip-service', './shared'], labels="compiles")
 
 docker_build_with_restart(
-  'tilt-dev/ride-sharing/trip-service',
+  'ride-sharing/trip-service',
   '.',
   entrypoint=['/app/build/trip-service'],
   dockerfile='./infra/development/docker/trip-service.Dockerfile',
@@ -75,7 +75,7 @@ k8s_resource('trip-service', resource_deps=['trip-service-compile'], labels="ser
 docker_build(
   'ride-sharing/web',
   '.',
-  dockerfile='./infra/development/docker/web.Dockerfile'
+  dockerfile='./infra/development/docker/web.Dockerfile',
 )
 
 k8s_yaml('./infra/development/k8s/web-deployment.yaml')
